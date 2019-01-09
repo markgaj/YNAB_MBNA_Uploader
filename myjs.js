@@ -33,7 +33,12 @@ var tableRow = table.rows[2];
 //Filter on the first cell on the second row
 var cells = tableRow.cells;
 
+//Initialize an array
+var transaction = [];
+
 for (var i = 0; i < cells.length; i++) {
-	var text = cells[i].innerHTML
-	console.log(text);
+	text = cells[i].innerHTML;
+	transaction.push(text);
 }
+
+console.log(transaction);
