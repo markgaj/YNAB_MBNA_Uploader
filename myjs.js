@@ -28,7 +28,7 @@ const amount = 4;
 var tableRows = document.getElementById("transactionTable").rows;
 
 //Initialize an array to hold transaction data
-var transactions = [];
+var transactions = [["Date", "Payee", "Outflow", "Inflow"]];
 
 //Only extract data if there is a valid posting date
 for(var i = 1; i < tableRows.length; i++) {
@@ -44,7 +44,19 @@ for(var i = 1; i < tableRows.length; i++) {
 		transaction.push(text);
 
 		text = tableRows[i].cells[amount].innerText;
-		transaction.push(text);
+
+		//Place +/- in the correct position for outflow/inflow
+		if( text.includes("-") )
+		{
+			//Add an empty entry for inflow followed by the outflow
+			transaction.push("");
+			transaction.push( text.substr(1) );
+		}
+		else {
+			//Add the inflow followed by an empty string for outflow
+			transaction.push(text);
+			transaction.push("");		
+		}
 
 		transactions.push(transaction);
 	}
