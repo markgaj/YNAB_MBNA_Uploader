@@ -18,35 +18,36 @@ var element = document.getElementById("accountSnapshotPageSection1");
 //Append the new element to the existing one
 element.appendChild(div);
 
+//////EXTRACTING TRANSACTION DATA//////
+
+const postingDate = 1;
+const description = 2;
+const amount = 4;
+
 //Find the table with transactions
-var table = document.getElementById("transactionTable");
+var tableRows = document.getElementById("transactionTable").rows;
 
-//Determine how many rows there are
-var rowLength = table.rows.length;
-
-//Print the number of rows
-console.log(rowLength);
-
-//Filter on the second row (ignore header)
-var tableRow = table.rows[2];
-
-//Filter on the first cell on the second row
-var cells = tableRow.cells;
-
-//Initialize an array
+//Initialize an array to hold transaction data
 var transactions = [];
-var transaction = [];
 
-//Get 3 relevant cells from table row
-text = table.rows[3].cells[1].innerText;
-transaction.push(text);
+//Only extract data if there is a valid posting date
+for(var i = 1; i < tableRows.length; i++) {
 
-text = table.rows[3].cells[2].innerText;
-transaction.push(text);
+	var transaction = [];
 
-text = table.rows[3].cells[4].innerText;
-transaction.push(text);
+	if ( tableRows[i].cells[postingDate].innerText ){
+		//Get 3 relevant cells from table row
+		text = tableRows[i].cells[postingDate].innerText;
+		transaction.push(text);
 
-transactions.push(transaction);
-transactions.push(transaction);
+		text = tableRows[i].cells[description].innerText;
+		transaction.push(text);
+
+		text = tableRows[i].cells[amount].innerText;
+		transaction.push(text);
+
+		transactions.push(transaction);
+	}
+}
+
 console.log(transactions);
