@@ -28,13 +28,12 @@ var rowLength = table.rows.length;
 console.log(rowLength);
 
 //Filter on the second row (ignore header)
-var tableRow = table.rows[1];
+var tableRow = table.rows[2];
 
 //Filter on the first cell on the second row
-var cell = tableRow.cells[2];
+var cells = tableRow.cells;
 
-//Filter on the data value only
-var cellData = cell.innerHTML;
-
-//print data
-console.log(cellData);
+for (var i = 0; i < cells.length; i++) {
+	var text = cells[i].innerHTML
+	console.log(text);
+}
