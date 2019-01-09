@@ -34,11 +34,19 @@ var tableRow = table.rows[2];
 var cells = tableRow.cells;
 
 //Initialize an array
+var transactions = [];
 var transaction = [];
 
-for (var i = 0; i < cells.length; i++) {
-	text = cells[i].innerHTML;
-	transaction.push(text);
-}
+//Get 3 relevant cells from table row
+text = table.rows[3].cells[1].innerText;
+transaction.push(text);
 
-console.log(transaction);
+text = table.rows[3].cells[2].innerText;
+transaction.push(text);
+
+text = table.rows[3].cells[4].innerText;
+transaction.push(text);
+
+transactions.push(transaction);
+transactions.push(transaction);
+console.log(transactions);
