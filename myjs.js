@@ -22,47 +22,54 @@ element.appendChild(div);
 
 const postingDate = 1;
 const description = 2;
-const amount = 4;
+const value = 4;
 
-var transactionsJSON;
+var allTransactions = [];
+var jsnData;
 
 //Find the table with transactions
 var tableRows = document.getElementById("transactionTable").rows;
 
-//Initialize an array to hold transaction data
-var transactions = [["Date", "Payee", "Outflow", "Inflow"]];
-
-//Only extract data if there is a valid posting date
+//Check all rows of the table excluding header
 for(var i = 1; i < tableRows.length; i++) {
 
-	var transaction = [];
+	//define variables
+	var date;
+	var amount;
+	var payee;
 
+	//Only extract data if there is a valid posting date
 	if ( tableRows[i].cells[postingDate].innerText ){
 		//Get 3 relevant cells from table row
-		text = tableRows[i].cells[postingDate].innerText;
-		transaction.push(text);
+		date = tableRows[i].cells[postingDate].innerText;
+		payee = tableRows[i].cells[description].innerText;
+		amount = tableRows[i].cells[value].innerText;
 
-		text = tableRows[i].cells[description].innerText;
-		transaction.push(text);
+		var newTransaction = new transaction( date, amount, payee );
 
-		text = tableRows[i].cells[amount].innerText;
-
-		//Place +/- in the correct position for outflow/inflow
-		if( text.includes("-") )
-		{
-			//Add an empty entry for inflow followed by the outflow
-			transaction.push("");
-			transaction.push( text.substr(1) );
-		}
-		else {
-			//Add the inflow followed by an empty string for outflow
-			transaction.push(text);
-			transaction.push("");		
-		}
-
-		transactions.push(transaction);
+		allTransactions.push( newTransaction );
 	}
 }
 
-transactionsJSON = JSON.stringify(transactions);
-console.log(transactionsJSON);
+jsnData = { transactions:allTransactions };
+jsnData = JSON.stringify(jsnData);
+console.log(jsnData);
+
+///////// Transaction Object Constructor /////////
+function transaction( date, amount, payee ) {
+
+    var amountInt = ( Number( amount.substr(1) ) * 1000);
+
+    this.account_id = "1234";
+    this.date = date;
+    this.amount = amountInt;
+    this.payee_id = null;
+    this.payee_name = payee;
+    this.category_id = null;
+    this.memo = null;
+    this.cleared = "cleared";
+    this.approved = false;
+    this.flag_color = null;
+    //this.import_id = "wait";
+    this.import_id = ( "YNAB:" + amountInt.toString() + ":" + date + ":0" );
+}
