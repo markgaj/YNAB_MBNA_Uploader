@@ -24,6 +24,8 @@ const postingDate = 1;
 const description = 2;
 const amount = 4;
 
+var transactionsJSON;
+
 //Find the table with transactions
 var tableRows = document.getElementById("transactionTable").rows;
 
@@ -62,4 +64,5 @@ for(var i = 1; i < tableRows.length; i++) {
 	}
 }
 
-console.log(transactions);
+transactionsJSON = JSON.stringify(transactions);
+console.log(transactionsJSON);
