@@ -1,3 +1,5 @@
+var idList = [];
+
 //Create a new element to insert
 var div = document.createElement("div");
 //Style this new element so we can see it.
@@ -59,6 +61,20 @@ console.log(jsnData);
 function transaction( date, amount, payee ) {
 
     var amountInt = ( Number( amount.substr(1) ) * 1000);
+    var tempId;
+    var idCount = 0;
+
+    tempId = ("YNAB:" + amountInt.toString() + ":" + date + ":");
+
+    idList.push(tempId);
+
+    for( var i = 0; i < idList.length; i++ )
+    {
+    	if ( idList[i] === tempId )
+    	{
+    		idCount++;
+    	}
+    }
 
     this.account_id = "1234";
     this.date = date;
@@ -70,6 +86,5 @@ function transaction( date, amount, payee ) {
     this.cleared = "cleared";
     this.approved = false;
     this.flag_color = null;
-    //this.import_id = "wait";
-    this.import_id = ( "YNAB:" + amountInt.toString() + ":" + date + ":0" );
+    this.import_id = ( tempId + idCount.toString() );
 }
