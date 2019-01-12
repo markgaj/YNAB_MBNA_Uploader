@@ -54,15 +54,17 @@ for(var i = 1; i < tableRows.length; i++) {
 }
 
 jsnData = { transactions:allTransactions };
-jsnData = JSON.stringify(jsnData);
+//jsnData = JSON.stringify(jsnData);
 console.log(jsnData);
 
 ///////// Transaction Object Constructor /////////
 function transaction( date, amount, payee ) {
 
-    var amountInt = ( Number( amount.substr(1) ) * 1000);
+    var amountInt;
     var tempId;
     var idCount = 0;
+
+    amountInt = convertAmount( amount );
 
     tempId = ("YNAB:" + amountInt.toString() + ":" + date + ":");
 
@@ -87,4 +89,31 @@ function transaction( date, amount, payee ) {
     this.approved = false;
     this.flag_color = null;
     this.import_id = ( tempId + idCount.toString() );
+}
+
+//Function to convert MBNA amounts to YNAB Compatible integers
+function convertAmount( amount ) {
+
+	//If the amount is negative
+	if ( amount.charAt(0) == "-" )
+	{
+		//Remove -$
+		amount =  amount.substr(2);
+		//Remove any commas
+		amount = amount.replace(/,/g,"");
+		//convert to an integer in "milli format"
+		amount = ( Number( amount ) * 1000);
+	}
+	else
+	//If amount is positive
+	{
+		//Remove $
+		amount = amount.substr(1);
+		//Remove any commas
+		amount = amount.replace(/,/g,"");
+		//convert to an integer in "milli format" (negative for outflow)
+		amount = ( Number( amount ) * -1000);
+	}
+	
+	return amount;
 }
