@@ -1,5 +1,3 @@
-var bankTransactions = [];
-
 //Create a new element to insert
 var div = document.createElement("div");
 
@@ -15,11 +13,10 @@ insertElement( div );
 
 //Make the new element clickable
 div.addEventListener("click", function() {
-    alert("You Clicked");
+    
+    var bankTransactions = getBankTransactions();
+
+    //Create a Ynab compatible wraper for transactions
+    bankTransactions = { "transactions": bankTransactions };
+    console.log(bankTransactions);
 });
-
-bankTransactions = getBankTransactions();
-
-jsnData = { "transactions": bankTransactions };
-//jsnData = JSON.stringify(jsnData);
-console.log(jsnData);
