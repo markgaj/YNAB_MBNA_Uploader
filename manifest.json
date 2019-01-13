@@ -9,7 +9,7 @@
 	  {
 	  	"matches": ["https://service.mbna.ca/waw/mbna/accountSnapshot.action"],
 	  	"css": ["mymain.css"],
-	  	"js": ["bank.js", "transactions.js", "myjs.js"]
+      "js": ["bank.js", "transactions.js", "myjs.js"]
 	  }
 	],
 

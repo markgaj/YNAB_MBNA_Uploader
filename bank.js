@@ -1,3 +1,49 @@
+//Function to insert button in an appropriate place
+function insertElement( div ){
+	//Select an existing element to attach new element to
+	var element = document.getElementById("accountSnapshotPageSection1");
+
+	//Append the new element to the existing one
+	element.appendChild(div);
+}
+
+//Function to extract Bank transactions from html table on bank website
+function getBankTransactions(){
+
+	const postingDate = 1;
+	const description = 2;
+	const value = 4;
+
+	var transactions = [];
+	var jsnData;
+
+	//Find the table with transactions
+	var tableRows = document.getElementById("transactionTable").rows;
+
+	//Check all rows of the table excluding header
+	for(var i = 1; i < tableRows.length; i++) {
+
+		//define variables
+		var date;
+		var amount;
+		var payee;
+
+		//Only extract data if there is a valid posting date
+		if ( tableRows[i].cells[postingDate].innerText ){
+			//Get 3 relevant cells from table row
+			date = tableRows[i].cells[postingDate].innerText;
+			payee = tableRows[i].cells[description].innerText;
+			amount = tableRows[i].cells[value].innerText;
+
+			var newTransaction = new transaction( date, amount, payee );
+
+			transactions.push( newTransaction );
+		}
+	}
+
+	return	transactions;
+}
+
 //Function to convert MBNA amounts to YNAB Compatible integers
 function convertAmount( amount ) {
 
