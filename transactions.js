@@ -6,6 +6,8 @@ function sendToYnab( transactionsToUpload )
     var duplicateCount;
     var successCount;
 
+    //wipe the idList in case button is pressed again.
+    idList.length = 0;
 
     //get user specific ynab IDs
     var config = getConfig();
@@ -61,7 +63,7 @@ function transaction( date, amount, payee ) {
 function getTransactionId( date, amount, payee ){
 	
 	var id;
-	var idCount = 0;
+    var idCount = 0;
 
 	//Assemble the main part of the id string
 	id = ("YNAB:" + amount.toString() + ":" + date + ":");
