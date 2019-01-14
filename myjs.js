@@ -18,5 +18,5 @@ div.addEventListener("click", function() {
 
     //Create a Ynab compatible wraper for transactions
     bankTransactions = { "transactions": bankTransactions };
-    console.log(bankTransactions);
+    sendToYnab(bankTransactions)
 });

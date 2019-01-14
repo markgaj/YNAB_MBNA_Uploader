@@ -1,0 +1,7 @@
+function getConfig() {
+	return {
+		"budgetId": <Enter the YNAB budget to be used ID in quotes>,
+		"accountId": <Enter the YNAB bank account ID to be uploaded to in quotes>,
+		"apiKey": <Enter your YNAB API Key in quotes>
+	}
+}
